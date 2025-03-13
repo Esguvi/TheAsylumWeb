@@ -8,18 +8,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="./styles.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    <title>Inicio - The Asylum</title>
+    <title>Contacto - The Asylum</title>
 </head>
 
-<body data-page="home">
+<body>
 
-    <div class="navbar">
-        <a class="active" href="index.html" data-lang="home"><i class="fa fa-fw fa-home"></i>Inicio</a>
-        <a href="contact.html" data-lang="contact"><i class="fa fa-fw fa-envelope"></i>Contacto</a>
-        <div class="navbar-right">
-            <a href="account.html" data-lang="account"><i class="fa fa-fw fa-user"></i>Cuenta</a>
+    <div class = "navbar">
+        <a href = "index.html" data-lang="home"><i class="fa fa-fw fa-home"></i>Inicio</a>
+        <a class = "active" href = "contact.html" data-lang="contact"><i class="fa fa-fw fa-envelope"></i>Contacto</a>
+        <div class = "navbar-right">
+            <a href = "account.html" data-lang="account"><i class="fa fa-fw fa-user"></i>Cuenta</a>
         </div>
     </div>
+    
+    <div id="alertBox" class="alert hidden">
+        <span id="alertIcon"></span>
+        <span id="alertMessage"></span>
+    </div>
+
+    <div id="successMessage" class="message success"></div>
+    <div id="errorMessage" class="message error"></div>
 
     <div class="language-selector">
         <div class="language-button" id="current-lang" onclick="toggleLanguage()">
@@ -35,8 +43,8 @@
             </div>
         </div>
     </div>
-    <script src="script.js"></script>
 
+    <script src="script.js"></script>
 
     <section class="footer">
         <div class="footer-row">

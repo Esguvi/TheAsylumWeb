@@ -1,58 +1,63 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="./styles.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <title>Cuenta - The Asylum</title>
 </head>
-<body>
+
+<body data-page="account">
+
     <div class = "navbar">
-        <a href = "index.html"><i class="fa fa-fw fa-home"></i>Inicio</a>
-        <a href = "#contact"><i class="fa fa-fw fa-envelope"></i>Contacto</a>
+        <a href = "index.html" data-lang="home"><i class="fa fa-fw fa-home"></i>Inicio</a>
+        <a href = "contact.html" data-lang="contact"><i class="fa fa-fw fa-envelope"></i>Contacto</a>
         <div class = "navbar-right">
-            <a class = "active" href = "account.html"><i class="fa fa-fw fa-user"></i>Cuenta</a>
+            <a class = "active" href = "account.html" data-lang="account"><i class="fa fa-fw fa-user"></i>Cuenta</a>
         </div>
     </div>
+
     <section class="auth-section">
         <div class="auth-container">
             <div id="loginFormBox" class="auth-box">
-                <h3>Iniciar sesión</h3>
+                <h3 data-lang="login">Iniciar sesión</h3>
                 <form id="loginForm">
-                    <label for="emailLogin">Correo electrónico:</label>
+                    <label for="emailLogin" data-lang="email">Correo electrónico:</label>
                     <input placeholder="example@theasylum.com" type="email" id="emailLogin" required>
                     
-                    <label for="passLogin">Contraseña:</label>
+                    <label for="passLogin" data-lang="password">Contraseña:</label>
                     <input placeholder="••••••••••" type="password" id="passLogin" required>
                     
                     <label>
                         <input type="checkbox" name="remember" style="margin-bottom:15px"> Recordar contraseña
                     </label>
 
-                    <button type="submit">Iniciar sesión</button>
+                    <button type="submit" data-lang="login">Iniciar sesión</button>
 
                     <label for="notRegistered">¿Todavía no tienes cuenta? Regístrate <a href="index.html">aquí</a></label>
                 </form>
             </div>
 
             <div id="registerFormBox" class="auth-box">
-                <h3>Crear cuenta</h3>
+                <h3 data-lang="register">Crear cuenta</h3>
                 <form id="registerForm">
-                    <label for="nameRegister">Nombre completo:</label>
+                    <label for="nameRegister" data-lang="fullname">Nombre completo:</label>
                     <input placeholder="The Asylum" type="text" id="nameRegister" required>
 
-                    <label for="userRegister">Usuario:</label>
+                    <label for="userRegister" data-lang="username">Nombre de usuario:</label>
                     <input placeholder="theasylum" type="text" id="userRegister" required>
 
-                    <label for="emailRegister">Correo:</label>
+                    <label for="emailRegister" data-lang="email">Correo electrónico:</label>
                     <input placeholder="example@theasylum.com" type="email" id="emailRegister" required>
 
-                    <label for="passRegister">Contraseña:</label>
+                    <label for="passRegister" data-lang="password">Contraseña:</label>
                     <input placeholder="••••••••••" type="password" id="passRegister" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="La contraseña debe contener al menos un número, una mayúscula y una minúscula, y al menos 8 o más caracteres." required>
 
-                    <label for="pass2Register">Confirmar contraseña:</label>
+                    <label for="pass2Register" data-lang="re-password">Confirmar contraseña:</label>
                     <input type="password" placeholder="••••••••••" name="pass2Register" required>
 
                     <p>Creando esta cuenta, estás aceptando nuestros <a href="#" style="color:dodgerblue">Términos y Privacidad</a>.</p>
@@ -73,6 +78,75 @@
     <div id="successMessage" class="message success"></div>
     <div id="errorMessage" class="message error"></div>
 
+    <div class="language-selector">
+        <div class="language-button" id="current-lang" onclick="toggleLanguage()">
+            <img id="current-lang-flag" src="images/flags/en.svg" alt="Language">
+            <span id="lang-text">EN</span>
+        </div>
+        <div class="language-dropdown">
+            <div class="language-option" onclick="setLanguage('EN')">
+                <img src="images/flags/en.svg" alt="English"> EN
+            </div>
+            <div class="language-option" onclick="setLanguage('ES')">
+                <img src="images/flags/es.svg" alt="Español"> ES
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
     <script type="module" src="account.js"></script>
+
+    <section class="footer">
+        <div class="footer-row">
+            <div class="footer-col">
+                <h4 data-lang="copyright">&copy; 2025 The Asylum. Todos los derechos reservados.</h4>
+            </div>
+            <div class="footer-col">
+                <h4>The Asylum</h4>
+                <ul class="links">
+                    <li><a href="index.html" data-lang="home">Inicio</a></li>
+                    <li><a href="contact.html" data-lang="contact">Contacto</a></li>
+                    <li><a href="account.html" data-lang="account">Cuenta</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul class="links">
+                    <li><a href="#" data-lang="privacy-policy">Política de privacidad</a></li>
+                    <li><a href="#" data-lang="terms-of-use">Términos de uso</a></li>
+                    <li><a href="#" data-lang="legal-information">Información legal</a></li>
+                    <li><a href="#" data-lang="cookies-configuration">Configuración de cookies</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-lang="follow-media">Síguenos en nuestras redes sociales</h4>
+                <div class="icons">
+                    <a href="https://instagram.com/" target="_blank">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://x.com/" target="_blank">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                    <a href="https://facebook.com/" target="_blank">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://tiktok.com/" target="_blank">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="https://youtube.com/" target="_blank">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="https://twitch.tv/" target="_blank">
+                        <i class="fa-brands fa-twitch"></i>
+                    </a>
+                    <a href="https://discord.com/" target="_blank">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
 </body>
+
 </html>
