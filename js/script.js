@@ -18,7 +18,12 @@ async function setLanguage(lang) {
             let translation = translations[lang][key] || key;
 
             if (element.tagName === "A") {
+                let icon = element.querySelector("i"); 
                 element.textContent = translation;
+
+                if (icon) {
+                    element.prepend(icon);
+                }
             } else {
                 let icon = element.querySelector("i");
                 let anchor = element.querySelector("a");
@@ -37,6 +42,7 @@ async function setLanguage(lang) {
         console.error("Error cargando las traducciones:", error);
     }
 }
+
 
 function toggleLanguage() {
     let currentLang = localStorage.getItem("lang") || "EN";
