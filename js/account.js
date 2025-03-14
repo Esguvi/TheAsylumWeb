@@ -3,7 +3,7 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase
 import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
-const firebaseConfig = {
+/*const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
     projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -11,12 +11,26 @@ const firebaseConfig = {
     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+};*/
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDT-A7mlLu6X3LRV5AFVm9xqzIRMBlWfkk",
+    authDomain: "theasylum-game.firebaseapp.com",
+    projectId: "theasylum-game",
+    storageBucket: "theasylum-game.firebasestorage.app",
+    messagingSenderId: "585770314222",
+    appId: "1:585770314222:web:33135f709bbca0969286ff",
+    measurementId: "G-XSDM25Q5D0"
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 const auth = getAuth(app);
-const analytics = getAnalytics(app);
+const db = getFirestore(app);
+
+console.log("Auth:", auth);
+console.log("Firestore:", db);
+console.log("API Key:", process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
+
 
 document.getElementById("registerForm").addEventListener("submit", async function (event) {
     event.preventDefault();
