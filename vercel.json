@@ -1,0 +1,17 @@
+{
+    "rewrites": [
+      {
+        "source": "/home",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/contact",
+        "destination": "/contact.html"
+      },
+      {
+        "source": "/account",
+        "destination": "/account.html"
+      }
+    ]
+  }
+  
