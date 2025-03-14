@@ -74,6 +74,42 @@ html {
 }
 
 
+/* Contacto */
+.contact-section {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 80px;
+}
+.contact-container {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  justify-content: center;
+}
+.contact-box {
+  background: #1A1A1A;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(139, 0, 0, 0.5);
+  border: 2px solid #8B0000;
+  width: 100%;
+  max-width: 700px;
+}
+.contact-box h3 {
+  font-size: 50px;
+  color: #D10000;
+  margin-bottom: 20px;
+}
+textarea {
+  resize: vertical;
+  min-height: 150px;
+  font-family: 'Poppins', sans-serif;
+}
+
+
 /* Sección de autenticación */
 .auth-section {
   width: 100%;
@@ -119,23 +155,39 @@ label {
   font-size: 14px;
   margin: 5px 0;
 }
-input {
-  padding: 10px;
+
+
+/* Estilos para los inputs */
+input, select, textarea {
+  padding: 12px;
   border: 1px solid #8B0000;
   border-radius: 4px;
   background: #0D0D0D;
   color: #EAEAEA;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   outline: none;
   transition: 0.3s;
 }
-input:focus {
+input:focus, select:focus, textarea:focus {
   border-color: #D10000;
   box-shadow: 0px 0px 5px #D10000;
 }
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white"%3E%3Cpath d="M6 8l4 4 4-4H6z"/%3E%3C/svg%3E');
+  background-position: right 10px center;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+}
+select option {
+  background-color: #2C2C2C;
+  color: white;
+}
 
 
-/* Botón */
+/* Estilos para el botón */
 button {
   background: #8B0000;
   color: #EAEAEA;
@@ -149,6 +201,26 @@ button {
 button:hover {
   background: #D10000;
   box-shadow: 0px 0px 10px #D10000;
+}
+
+
+/* Estilos para los placeholders */
+input::placeholder, textarea::placeholder {
+  color: #888;
+}
+
+
+/* Barra de carga para el select */
+select {
+  padding: 12px;
+  border: 1px solid #8B0000;
+  background: #2C2C2C;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  outline: none;
 }
 
 

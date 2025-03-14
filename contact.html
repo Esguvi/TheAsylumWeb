@@ -11,23 +11,16 @@
     <title>Contacto - The Asylum</title>
 </head>
 
-<body>
+<body data-page="contact">
 
-    <div class = "navbar">
-        <a href = "index.html" data-lang="home"><i class="fa fa-fw fa-home"></i>Inicio</a>
-        <a class = "active" href = "contact.html" data-lang="contact"><i class="fa fa-fw fa-envelope"></i>Contacto</a>
-        <div class = "navbar-right">
-            <a href = "account.html" data-lang="account"><i class="fa fa-fw fa-user"></i>Cuenta</a>
+    <div class="navbar">
+        <a href="index.html" data-lang="home"><i class="fa fa-fw fa-home"></i>Inicio</a>
+        <a class="active" href="contact.html" data-lang="contact"><i class="fa fa-fw fa-envelope"></i>Contacto</a>
+        <div class="navbar-right">
+            <a href="account.html" data-lang="account"><i class="fa fa-fw fa-user"></i>Cuenta</a>
         </div>
     </div>
-    
-    <div id="alertBox" class="alert hidden">
-        <span id="alertIcon"></span>
-        <span id="alertMessage"></span>
-    </div>
 
-    <div id="successMessage" class="message success"></div>
-    <div id="errorMessage" class="message error"></div>
 
     <div class="language-selector">
         <div class="language-button" id="current-lang" onclick="toggleLanguage()">
@@ -44,7 +37,45 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+
+    <div id="alertBox" class="alert hidden">
+        <span id="alertIcon"></span>
+        <span id="alertMessage"></span>
+    </div>
+
+
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-box">
+                <h3 data-lang="contact-us">Contáctanos</h3>
+                <form id="contactForm">
+                    <label for="name" data-lang="fullname">Nombre completo:</label>
+                    <input type="text" id="name" placeholder="The Asylum" required>
+
+                    <label for="name" data-lang="username">Nombre de usuario:</label>
+                    <input type="text" id="name" placeholder="theasylum" required>
+    
+                    <label for="email" data-lang="email">Correo electrónico:</label>
+                    <input type="email" id="email" placeholder="example@theasylum.com" required>
+    
+                    <label for="contactReason" data-lang="contact-reason">Motivo del contacto:</label>
+                    <select id="contactReason" required>
+                        <option value="" disabled data-lang="select-contact-reason" selected>Selecciona un motivo</option>
+                        <option value="support" data-lang="support">Soporte técnico</option>
+                        <option value="suggestion" data-lang="suggestion">Sugerencia</option>
+                        <option value="comments" data-lang="comments">Comentarios</option>
+                        <option value="other" data-lang="other">Otro</option>
+                    </select>
+    
+                    <label for="message" data-lang="message">Mensaje:</label>
+                    <textarea id="message" placeholder="The Asylum..." required></textarea>
+    
+                    <button type="submit">Enviar</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
 
     <section class="footer">
         <div class="footer-row">
@@ -96,6 +127,10 @@
             </div>
         </div>
     </section>
+
+
+    <!-- SCRIPTS JAVASCRIPT -->
+    <script src="js/script.js"></script>
 
 </body>
 
