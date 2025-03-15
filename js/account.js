@@ -1,126 +1,68 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
-import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-
-/*const firebaseConfig = {
-    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
-};*/
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDT-A7mlLu6X3LRV5AFVm9xqzIRMBlWfkk",
-    authDomain: "theasylum-game.firebaseapp.com",
-    projectId: "theasylum-game",
-    storageBucket: "theasylum-game.firebasestorage.app",
-    messagingSenderId: "585770314222",
-    appId: "1:585770314222:web:33135f709bbca0969286ff",
-    measurementId: "G-XSDM25Q5D0"
+  apiKey: "AIzaSyDT-A7mlLu6X3LRV5AFVm9xqzIRMBlWfkk",
+  authDomain: "theasylum-game.firebaseapp.com",
+  projectId: "theasylum-game",
+  storageBucket: "theasylum-game.firebasestorage.app",
+  messagingSenderId: "585770314222",
+  appId: "1:585770314222:web:33135f709bbca0969286ff",
+  measurementId: "G-XSDM25Q5D0"
 };
 
 const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 const auth = getAuth(app);
-const db = getFirestore(app);
 
-console.log("Auth:", auth);
-console.log("Firestore:", db);
-console.log("API Key:", firebaseConfig.apiKey);
+function showAlert(message, type = "success") {
+    const alertBox = document.getElementById("alertBox");
+    const alertMessage = document.getElementById("alertMessage");
+    
+    alertBox.className = `alert ${type}`;
+    alertMessage.textContent = message;
+    alertBox.classList.remove("hidden");
+    
+    setTimeout(() => {
+        alertBox.classList.add("hidden");
+    }, 3000);
+}
 
-document.getElementById("registerForm").addEventListener("submit", async function (event) {
+document.getElementById("registerForm").addEventListener("submit", (event) => {
     event.preventDefault();
-    const fullname = document.getElementById("nameRegister").value;
-    const username = document.getElementById("userRegister").value;
+    
     const email = document.getElementById("emailRegister").value;
     const password = document.getElementById("passRegister").value;
-    const confirmPassword = document.querySelector("input[name='pass2Register']").value;
+    const confirmPassword = document.getElementById("pass2Register").value;
 
     if (password !== confirmPassword) {
         showAlert("Las contraseñas no coinciden", "error");
         return;
     }
 
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
-    if (!passwordRegex.test(password)) {
-        showAlert("La contraseña debe contener al menos 8 caracteres, incluyendo mayúsculas, minúsculas, números y caracteres especiales.", "error");
-        return;
-    }
-
-    try {
-        const usersRef = collection(db, "users");
-        const q = query(usersRef, where("email", "==", email));
-        const querySnapshot = await getDocs(q);
-
-        if (!querySnapshot.empty) {
-            showAlert("Este correo ya está registrado.", "error");
-            return;
-        }
-
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        const user = userCredential.user;
-
-        await addDoc(usersRef, {
-            fullname: fullname,
-            username: username,
-            email: email,
-            uid: user.uid
+    createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+            showAlert("Registro exitoso", "success");
+            document.getElementById("registerForm").reset();
+        })
+        .catch(error => {
+            showAlert(error.message, "error");
         });
-
-        showAlert("Usuario registrado correctamente.", "success");
-        document.getElementById("registerForm").reset();
-    } catch (error) {
-        let errorMessage = "Error: " + error.message;
-        if (error.code === "auth/email-already-in-use") {
-            errorMessage = "Este correo ya está en uso.";
-        }
-        showAlert(errorMessage, "error");
-    }
 });
 
-document.getElementById("loginForm").addEventListener("submit", async function (event) {
+document.getElementById("loginForm").addEventListener("submit", (event) => {
     event.preventDefault();
+    
     const email = document.getElementById("emailLogin").value;
     const password = document.getElementById("passLogin").value;
 
-    try {
-        const userCredential = await signInWithEmailAndPassword(auth, email, password);
-        showAlert("Inicio de sesión exitoso.", "success");
-    } catch (error) {
-        let errorMessage = "Error: " + error.message;
-        if (error.code === "auth/wrong-password" || error.code === "auth/invalid-credential") {
-            errorMessage = "Alguno de los datos es incorrecto.";
-        } else if (error.code === "auth/user-not-found") {
-            errorMessage = "Usuario no encontrado.";
-        }
-        showAlert(errorMessage, "error");
-    }
+    signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+            showAlert("Inicio de sesión exitoso", "success");
+            document.getElementById("loginForm").reset();
+        })
+        .catch(error => {
+            showAlert(error.message, "error");
+        });
 });
-
-export function showAlert(message, type) {
-    const alertBox = document.getElementById("alertBox");
-    const alertMessage = document.getElementById("alertMessage");
-    const alertIcon = document.getElementById("alertIcon");
-
-    alertMessage.textContent = message;
-
-    if (type === "success") {
-        alertBox.className = "alert success";
-        alertIcon.innerHTML = '<i class="fa fa-check-circle"></i>';
-    } else if (type === "error") {
-        alertBox.className = "alert error";
-        alertIcon.innerHTML = '<i class="fa fa-times-circle"></i>';
-    } else {
-        alertBox.className = "alert info";
-        alertIcon.innerHTML = '<i class="fa fa-info-circle"></i>';
-    }
-
-    alertBox.classList.remove("hidden");
-
-    setTimeout(() => {
-        alertBox.classList.add("hidden");
-    }, 5000);
-}
