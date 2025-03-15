@@ -34,10 +34,11 @@ function showAlert(message, type = "success") {
 document.getElementById("registerForm").addEventListener("submit", async (event) => {
     event.preventDefault();
     
+    const fullname = document.getElementById("nameRegister").value;
+    const username = document.getElementById("userRegister").value;
     const email = document.getElementById("emailRegister").value;
     const password = document.getElementById("passRegister").value;
     const confirmPassword = document.getElementById("pass2Register").value;
-    const username = document.getElementById("nameRegister").value;
 
     if (password !== confirmPassword) {
         showAlert("Las contraseñas no coinciden", "error");
@@ -49,9 +50,10 @@ document.getElementById("registerForm").addEventListener("submit", async (event)
         const user = userCredential.user;
 
         await setDoc(doc(db, "users", user.uid), {
-            name: username,
+            fullname: fullname,
+            username: username,
             email: email,
-            createdAt: new Date()
+            uid: user.uid 
         });
 
         showAlert("Registro exitoso", "success");
@@ -60,6 +62,7 @@ document.getElementById("registerForm").addEventListener("submit", async (event)
         showAlert(error.message, "error");
     }
 });
+
 
 document.getElementById("loginForm").addEventListener("submit", async (event) => {
     event.preventDefault();
