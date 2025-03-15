@@ -21,15 +21,29 @@ const db = getFirestore(app);
 function showAlert(message, type = "success") {
     const alertBox = document.getElementById("alertBox");
     const alertMessage = document.getElementById("alertMessage");
-    
-    alertBox.className = `alert ${type}`;
+    const alertIcon = document.getElementById("alertIcon");
+
+    alertIcon.className = '';
+
+    if (type === "success") {
+        alertBox.className = `alert success`;
+        alertIcon.classList.add("fas", "fa-check-circle");
+    } else if (type === "error") {
+        alertBox.className = `alert error`;
+        alertIcon.classList.add("fas", "fa-times-circle"); 
+    } else if (type === "info") {
+        alertBox.className = `alert info`;
+        alertIcon.classList.add("fas", "fa-info-circle");
+    }
+
     alertMessage.textContent = message;
     alertBox.classList.remove("hidden");
-    
+
     setTimeout(() => {
         alertBox.classList.add("hidden");
     }, 3000);
 }
+
 
 document.getElementById("registerForm").addEventListener("submit", async (event) => {
     event.preventDefault();
