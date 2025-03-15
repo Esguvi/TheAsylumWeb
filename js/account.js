@@ -29,8 +29,7 @@ const db = getFirestore(app);
 
 console.log("Auth:", auth);
 console.log("Firestore:", db);
-console.log("API Key:", process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
-
+console.log("API Key:", firebaseConfig.apiKey);
 
 document.getElementById("registerForm").addEventListener("submit", async function (event) {
     event.preventDefault();
@@ -52,10 +51,19 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     }
 
     try {
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("email", "==", email));
+        const querySnapshot = await getDocs(q);
+
+        if (!querySnapshot.empty) {
+            showAlert("Este correo ya está registrado.", "error");
+            return;
+        }
+
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        await addDoc(collection(db, "users"), {
+        await addDoc(usersRef, {
             fullname: fullname,
             username: username,
             email: email,
