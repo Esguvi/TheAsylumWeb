@@ -3,30 +3,20 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
-async function getFirebaseConfig() {
-    try {
-        const response = await fetch("/api/firebase-config");
-        return await response.json();
-    } catch (error) {
-        console.error("Error cargando la configuración de Firebase:", error);
-        showAlert("Error al cargar la configuración. Inténtalo más tarde.", "error");
-        return null;
-    }
-}
+const firebaseConfig = {
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
+};
 
-async function initFirebase() {
-    const firebaseConfig = await getFirebaseConfig();
-    if (!firebaseConfig) return;
-
-    const app = initializeApp(firebaseConfig);
-    getAnalytics(app);
-    window.auth = getAuth(app);
-    window.db = getFirestore(app);
-
-    console.log("Firebase inicializado correctamente.");
-}
-
-initFirebase();
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
 function showAlert(message, type = "success") {
     const alertBox = document.getElementById("alertBox");
@@ -36,13 +26,13 @@ function showAlert(message, type = "success") {
     alertIcon.className = '';
 
     if (type === "success") {
-        alertBox.className = "alert success";
+        alertBox.className = `alert success`;
         alertIcon.classList.add("fas", "fa-check-circle");
     } else if (type === "error") {
-        alertBox.className = "alert error";
+        alertBox.className = `alert error`;
         alertIcon.classList.add("fas", "fa-times-circle"); 
     } else if (type === "info") {
-        alertBox.className = "alert info";
+        alertBox.className = `alert info`;
         alertIcon.classList.add("fas", "fa-info-circle");
     }
 
@@ -57,16 +47,11 @@ function showAlert(message, type = "success") {
 document.getElementById("registerForm").addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const fullname = document.getElementById("nameRegister").value.trim();
-    const username = document.getElementById("userRegister").value.trim();
-    const email = document.getElementById("emailRegister").value.trim();
+    const fullname = document.getElementById("nameRegister").value;
+    const username = document.getElementById("userRegister").value;
+    const email = document.getElementById("emailRegister").value;
     const password = document.getElementById("passRegister").value;
     const confirmPassword = document.getElementById("pass2Register").value;
-
-    if (!fullname || !username || !email || !password || !confirmPassword) {
-        showAlert("Todos los campos son obligatorios", "error");
-        return;
-    }
 
     if (password !== confirmPassword) {
         showAlert("Las contraseñas no coinciden", "error");
@@ -74,14 +59,14 @@ document.getElementById("registerForm").addEventListener("submit", async (event)
     }
 
     try {
-        const userCredential = await createUserWithEmailAndPassword(window.auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        await setDoc(doc(window.db, "users", user.uid), {
+        await setDoc(doc(db, "users", user.uid), {
             fullname: fullname,
             username: username,
             email: email,
-            uid: user.uid
+            uid: user.uid 
         });
 
         showAlert("Registro exitoso", "success");
@@ -94,16 +79,11 @@ document.getElementById("registerForm").addEventListener("submit", async (event)
 document.getElementById("loginForm").addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const email = document.getElementById("emailLogin").value.trim();
+    const email = document.getElementById("emailLogin").value;
     const password = document.getElementById("passLogin").value;
 
-    if (!email || !password) {
-        showAlert("Todos los campos son obligatorios", "error");
-        return;
-    }
-
     try {
-        await signInWithEmailAndPassword(window.auth, email, password);
+        await signInWithEmailAndPassword(auth, email, password);
         showAlert("Inicio de sesión exitoso", "success");
         document.getElementById("loginForm").reset();
     } catch (error) {
