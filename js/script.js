@@ -1,6 +1,7 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let lang = localStorage.getItem("lang") || "EN";
     setLanguage(lang);
+    updateDropdown(lang);
 });
 
 async function setLanguage(lang) {
@@ -10,15 +11,14 @@ async function setLanguage(lang) {
 
         localStorage.setItem("lang", lang);
 
-        document.getElementById("lang-text").textContent = lang;
-        document.getElementById("current-lang-flag").src = `images/flags/${lang.toLowerCase()}.svg`;
+        document.getElementById("current-lang").innerHTML = `<img id="current-lang-flag" src="images/flags/${lang.toLowerCase()}.svg" alt="Language" style="margin-right: 8px;"> <span id="lang-text">${lang}</span>`;
 
         document.querySelectorAll("[data-lang]").forEach(element => {
             let key = element.getAttribute("data-lang");
             let translation = translations[lang][key] || key;
 
             if (element.tagName === "A") {
-                let icon = element.querySelector("i"); 
+                let icon = element.querySelector("i");
                 element.textContent = translation;
 
                 if (icon) {
@@ -37,15 +37,30 @@ async function setLanguage(lang) {
         });
 
         let pageKey = document.body.getAttribute("data-page") || "home";
-        document.title = translations[lang][pageKey] + " - The Asylum";    
+        document.title = translations[lang][pageKey] + " - The Asylum";
+
+        updateDropdown(lang);
     } catch (error) {
         console.error("Error cargando las traducciones:", error);
     }
 }
 
+function updateDropdown(currentLang) {
+    const dropdown = document.getElementById("language-dropdown");
+    dropdown.innerHTML = "";
 
-function toggleLanguage() {
-    let currentLang = localStorage.getItem("lang") || "EN";
-    let newLang = currentLang === "EN" ? "ES" : "EN";
-    setLanguage(newLang);
+    let otherLang = currentLang === "EN" ? "ES" : "EN"; 
+
+    const langOption = document.createElement("div");
+    langOption.classList.add("language-option");
+    langOption.onclick = () => setLanguage(otherLang);
+    
+    langOption.innerHTML = `<img src="images/flags/${otherLang.toLowerCase()}.svg" alt="${otherLang}" style="margin-right: 8px;"> ${otherLang}`;
+    
+    dropdown.appendChild(langOption);
+}
+
+
+function toggleDropdown() {
+    document.getElementById("language-dropdown").classList.toggle("show");
 }
