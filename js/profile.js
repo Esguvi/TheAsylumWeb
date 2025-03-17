@@ -1,4 +1,4 @@
-import { getAuth, sendPasswordResetEmail, updateEmail, sendEmailVerification, onAuthStateChanged, signOut  } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { getAuth, sendPasswordResetEmail, onAuthStateChanged, signOut  } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
@@ -71,23 +71,6 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-document.getElementById("verifyEmailBtn").addEventListener("click", () => {
-    const user = auth.currentUser;
-
-    if (user) {
-        sendEmailVerification(user)
-            .then(() => {
-                showAlert("Correo de verificación enviado. Revisa tu bandeja de entrada.", "success");
-            })
-            .catch((error) => {
-                console.error("Error al enviar el correo de verificación: ", error);
-                showAlert("Hubo un error al enviar el correo de verificación.", "error");
-            });
-    } else {
-        showAlert("No hay ningún usuario autenticado. Inicia sesión para verificar tu correo.", "error");
-    }
-});
-
 document.getElementById("changePasswordBtn").addEventListener("click", () => {
     const userEmail = auth.currentUser.email;
 
@@ -100,45 +83,6 @@ document.getElementById("changePasswordBtn").addEventListener("click", () => {
             showAlert("Hubo un error al enviar el correo de restablecimiento de contraseña.", "error");
         });
 });
-
-document.getElementById("changeEmailBtn").addEventListener("click", () => {
-    const newEmail = prompt("Introduce tu nuevo correo electrónico:");
-
-    if (newEmail && validateEmail(newEmail)) {
-        const currentUser = auth.currentUser;
-
-        currentUser.reload()
-            .then(() => {
-                if (currentUser.emailVerified) {
-                    updateEmail(currentUser, newEmail)
-                        .then(() => {
-                            sendEmailVerification(currentUser)
-                                .then(() => {
-                                    showAlert("Email actualizado con éxito. Verifica tu nuevo correo electrónico.", "success");
-                                })
-                                .catch((error) => {
-                                    console.error("Error al enviar el correo de verificación del nuevo correo: ", error);
-                                    showAlert("Hubo un error al enviar el correo de verificación del nuevo correo.", "error");
-                                });
-                        })
-                        .catch((error) => {
-                            console.error("Error al actualizar el email: ", error);
-                            showAlert("Hubo un error al actualizar tu email.", "error");
-                        });
-                } else {
-                    // Si el correo no está verificado, mostrar un mensaje de error
-                    showAlert("El correo actual no está verificado. Verifica tu correo para continuar.", "error");
-                }
-            })
-            .catch((error) => {
-                console.error("Error al recargar el estado del usuario: ", error);
-                showAlert("Hubo un error al verificar el estado de tu correo. Intenta nuevamente.", "error");
-            });
-    } else {
-        showAlert("Por favor, introduce un correo electrónico válido.", "error");
-    }
-});
-
 
 document.getElementById("signOutBtn").addEventListener("click", () => {
     const auth = getAuth();
@@ -153,8 +97,3 @@ document.getElementById("signOutBtn").addEventListener("click", () => {
             showAlert("Hubo un error al cerrar sesión.", "error");
         });
 });
-
-function validateEmail(email) {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-    return emailRegex.test(email);
-}
