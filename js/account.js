@@ -89,6 +89,6 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
 
         window.location.href = "profile.html?email=" + encodeURIComponent(email);
     } catch (error) {
-        showAlert(error.message, "error");
+        showAlert("Ha habido un error al iniciar sesión", "error");
     }
 });

@@ -1,6 +1,6 @@
-import { getAuth, sendPasswordResetEmail, onAuthStateChanged, signOut  } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { getAuth, sendPasswordResetEmail, onAuthStateChanged, signOut, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDT-A7mlLu6X3LRV5AFVm9xqzIRMBlWfkk",
@@ -96,4 +96,35 @@ document.getElementById("signOutBtn").addEventListener("click", () => {
             console.error("Error al cerrar sesión: ", error);
             showAlert("Hubo un error al cerrar sesión.", "error");
         });
+});
+
+document.getElementById("deleteAccountBtn").addEventListener("click", async () => {
+    const user = auth.currentUser;
+
+    if (!user) {
+        showAlert("No hay usuario autenticado.", "error");
+        return;
+    }
+
+    const userId = user.uid;
+    const password = prompt("Para eliminar tu cuenta, ingresa tu contraseña:");
+
+    if (!password) {
+        showAlert("Eliminación cancelada.", "info");
+        return;
+    }
+
+    try {
+        const credential = EmailAuthProvider.credential(user.email, password);
+        await reauthenticateWithCredential(user, credential);
+
+        await deleteDoc(doc(db, "users", userId));
+
+        await deleteUser(user);
+
+        showAlert("Cuenta eliminada correctamente.", "success");
+    } catch (error) {
+        console.error("Error al eliminar la cuenta: ", error);
+        showAlert("Hubo un error al eliminar la cuenta: " + error.message, "error");
+    }
 });
