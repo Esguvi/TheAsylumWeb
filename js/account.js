@@ -86,6 +86,8 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
         await signInWithEmailAndPassword(auth, email, password);
         showAlert("Inicio de sesión exitoso", "success");
         document.getElementById("loginForm").reset();
+
+        window.location.href = "profile.html?email=" + encodeURIComponent(email);
     } catch (error) {
         showAlert(error.message, "error");
     }
