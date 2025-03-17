@@ -5,6 +5,8 @@
         "contact-us": "Contáctanos",
         "account": "Cuenta",
         "profile": "Mi perfil",
+        "change-password": "Cambiar contraseña",
+        "sign-out": "Cerrar sesión",
         "login": "Iniciar sesión",
         "register": "Crear cuenta",
         "fullname": "Nombre completo",
@@ -31,7 +33,10 @@
         "terms-of-use": "Términos de uso",
         "legal-information": "Información legal",
         "cookies-configuration": "Configuración de cookies",
-        "follow-media": "Síguenos en nuestras redes sociales"
+        "follow-media": "Síguenos en nuestras redes sociales",
+        "fullnamee": "Nombre completo:",
+        "usernamee": "Nombre de usuario:",
+        "emaill": "Correo electrónico:"
     },
     "EN": {
         "home": "Home",
@@ -39,6 +44,8 @@
         "contact-us": "Contact us",
         "account": "Account",
         "profile": "My profile",
+        "change-password": "Change password",
+        "sign-out": "Sign Out",
         "login": "Login",
         "register": "Register",
         "fullname": "Full name",
@@ -65,6 +72,9 @@
         "terms-of-use": "Terms of Use",
         "legal-information": "Legal Information",
         "cookies-configuration": "Cookies Configuration",
-        "follow-media": "Follow us on our social media"
+        "follow-media": "Follow us on our social media",
+        "fullnamee": "Full Name:",
+        "usernamee": "Username:",
+        "emaill": "Email:"
     }
 }

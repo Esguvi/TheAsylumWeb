@@ -21,6 +21,7 @@
         </div>
     </div>
 
+
     <div class="language-selector">
         <div class="language-button" id="current-lang" onclick="toggleLanguage()">
             <img id="current-lang-flag" src="images/flags/en.svg" alt="Language">
@@ -29,30 +30,33 @@
         <div class="language-dropdown" id="language-dropdown"></div>
     </div>
 
+
     <div id="alertBox" class="alert hidden">
         <span id="alertIcon"></span>
         <span id="alertMessage"></span>
     </div>
 
+
     <section class="profile-section">
         <div class="profile-container">
-            <h3>Mi Perfil</h3>
+            <h3 data-lang="profile">Mi Perfil</h3>
             <div class="profile-info">
-                <p><strong>Nombre:</strong> 
+                <p><strong data-lang="fullnamee">Nombre:</strong> 
                     <span id="profileName">Cargando...</span>
                 </p>
-                <p><strong>Nombre de usuario:</strong> 
+                <p><strong data-lang="usernamee">Nombre de usuario:</strong> 
                     <span id="profileUsername">Cargando...</span>
                 </p>
-                <p><strong>Email:</strong> 
+                <p><strong data-lang="emaill">Email:</strong> 
                     <span id="profileEmail">Cargando...</span>
                 </p>
             </div>
 
-            <button id="changePasswordBtn">Cambiar contraseña</button>
-            <button id="signOutBtn">Cerrar sesión</button>
+            <button id="changePasswordBtn" data-lang="change-password">Cambiar contraseña</button>
+            <button id="signOutBtn" data-lang="sign-out">Cerrar sesión</button>
         </div>
     </section>
+
 
     <section class="footer">
         <div class="footer-row">
@@ -105,6 +109,9 @@
         </div>
     </section>
 
+
+    <!-- SCRIPTS JAVASCRIPT -->
+    <script src="js/script.js"></script>
     <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js"></script>
     <script type="module" src="js/profile.js"></script>
