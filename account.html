@@ -51,11 +51,12 @@
                     <label for="passLogin" data-lang="password">Contraseña:</label>
                     <input placeholder="••••••••••" type="password" id="passLogin" required>
                     
-                    <!--
-                    <label>
-                        <input type="checkbox" name="remember" style="margin-bottom:15px"> Recordar contraseña
-                    </label>
-                    -->
+                    
+                    <div>
+                        <input type="checkbox" id="rem" name="remember" style="margin-bottom:15px">
+                        <label for="rem" data-lang="remember-password">Recordadar Contraseña</label>
+                    </div>
+                   
 
                     <a href="forgotten-password.html" style="color:dodgerblue" data-lang="forgotten-passwd-q">¿Has olvidado tu contraseña?</a>
 
@@ -86,7 +87,8 @@
                     <button type="submit" data-lang="register">Registrarse</button>
                     
                     <!-- Problema con el JAVASCRIPT, me coge otra cosa diferente, en vez de el <p> y dentro su <a>, osea me traduce solo si lo pongo por separado -->
-                    <p data-lang="creating-account">Creando esta cuenta, estás aceptando nuestros <a href="#" style="color:dodgerblue" data-lang="terms-priv">Términos y Privacidad</a>.</p>
+                    <p data-lang="creating-account"><a><a href="#" style="color:dodgerblue" data-lang="terms-priv">Términos y Privacidad</a>.</a></p>
+                    <!--<p data-lang="creating-account">Creando esta cuenta, estás aceptando nuestros <a href="#" style="color:dodgerblue" data-lang="terms-priv">Términos y Privacidad</a>.</p>-->
 
                     <!--<label for="loginAlready" data-lang="not-registered">¿Tienes cuenta? Inicia sesión <a href="index.html" data-lang="here">aquí</a></label>-->
                 </form>
