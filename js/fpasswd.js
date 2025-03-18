@@ -53,7 +53,6 @@ document.getElementById("fPasswordBtn").addEventListener("click", async (event) 
         await sendPasswordResetEmail(auth, userEmail);
         showAlert("Se ha enviado un correo para restablecer tu contraseña. Comprueba tu correo.", "success");
     } catch (error) {
-        console.error("Error al enviar el correo de restablecimiento de contraseña: ", error);
         showAlert("Hubo un error al enviar el correo de restablecimiento de contraseña.", "error");
     }
 });

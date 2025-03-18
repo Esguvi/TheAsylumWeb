@@ -79,7 +79,6 @@ document.getElementById("changePasswordBtn").addEventListener("click", () => {
             showAlert("Se ha enviado un correo para restablecer tu contraseña. Comprueba tu correo.", "success");
         })
         .catch((error) => {
-            console.error("Error al enviar el correo de restablecimiento de contraseña: ", error);
             showAlert("Hubo un error al enviar el correo de restablecimiento de contraseña.", "error");
         });
 });
@@ -93,7 +92,6 @@ document.getElementById("signOutBtn").addEventListener("click", () => {
             window.location.href = "account.html";  
         })
         .catch((error) => {
-            console.error("Error al cerrar sesión: ", error);
             showAlert("Hubo un error al cerrar sesión.", "error");
         });
 });
@@ -124,7 +122,6 @@ document.getElementById("deleteAccountBtn").addEventListener("click", async () =
 
         showAlert("Cuenta eliminada correctamente.", "success");
     } catch (error) {
-        console.error("Error al eliminar la cuenta: ", error);
         showAlert("Hubo un error al eliminar la cuenta: " + error.message, "error");
     }
 });

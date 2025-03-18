@@ -41,7 +41,6 @@ async function setLanguage(lang) {
 
         updateDropdown(lang);
     } catch (error) {
-        console.error("Error cargando las traducciones:", error);
     }
 }
 

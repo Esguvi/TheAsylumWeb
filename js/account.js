@@ -17,6 +17,9 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
+var seen = true;
+var seen2 = true;
+var seen3 = true;
 
 function showAlert(message, type = "success") {
     const alertBox = document.getElementById("alertBox");
@@ -92,3 +95,40 @@ document.getElementById("loginForm").addEventListener("submit", async (event) =>
         showAlert("Ha habido un error al iniciar sesión", "error");
     }
 });
+
+document.getElementById("see").addEventListener("click", () => {
+    var password = document.getElementById("passLogin");
+
+    if (seen) {
+        password.type = "text";
+        seen = false;
+    } else {
+        password.type = "password";
+        seen = true;
+    }
+});
+
+document.getElementById("see2").addEventListener("click", () => {
+    var password = document.getElementById("passRegister");
+
+    if (seen2) {
+        password.type = "text";
+        seen2 = false;
+    } else {
+        password.type = "password";
+        seen2 = true;
+    }
+});
+
+document.getElementById("see3").addEventListener("click", () => {
+    var password = document.getElementById("pass2Register");
+
+    if (seen3) {
+        password.type = "text";
+        seen3 = false;
+    } else {
+        password.type = "password";
+        seen3 = true;
+    }
+});
+
