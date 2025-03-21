@@ -126,27 +126,18 @@ document.getElementById("deleteAccountBtn").addEventListener("click", async () =
     }
 });
 
-function redirectToUnity() {
-    const email = document.getElementById("profileEmail").textContent;
+document.getElementById("playNowBtn").addEventListener("click", () => {
+    const user = auth.currentUser;
 
-    if (email && email !== "Cargando...") {
-        const apiUrl = `/api/redirectToUnity?email=${encodeURIComponent(email)}`;
-
-        fetch(apiUrl)
-            .then(response => {
-                if (response.ok) {
-                    window.location.href = `/api/redirectToUnity?email=${encodeURIComponent(email)}`;
-                } else {
-                    alert('Hubo un error al intentar iniciar el juego.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Hubo un error al intentar iniciar el juego.');
-            });
+    if (user) {
+        const userEmail = user.email;
+        const unityURL = `unitygame://start?email=${encodeURIComponent(userEmail)}`;
+        window.location.href = unityURL;  // Redirigir al juego
     } else {
-        alert("Por favor, asegúrate de estar autenticado.");
+        showAlert("No estás autenticado. Inicia sesión para jugar.", "error");
+        window.location.href = "account.html";  // Redirigir a la página de cuenta si no está autenticado
     }
-}
+});
+
 
 
