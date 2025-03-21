@@ -125,3 +125,19 @@ document.getElementById("deleteAccountBtn").addEventListener("click", async () =
         showAlert("Hubo un error al eliminar la cuenta: " + error.message, "error");
     }
 });
+
+document.getElementById("playNowBtn").addEventListener("click", () => {
+    const user = auth.currentUser;
+
+    if (user) {
+        const userEmail = user.email;
+
+        const unityURL = `unitygame://start?email=${encodeURIComponent(userEmail)}`;
+
+        window.location.href = unityURL;
+    } else {
+        showAlert("No estás autenticado. Inicia sesión para jugar.", "error");
+        window.location.href = "account.html";
+    }
+});
+
