@@ -125,29 +125,3 @@ document.getElementById("deleteAccountBtn").addEventListener("click", async () =
         showAlert("Hubo un error al eliminar la cuenta: " + error.message, "error");
     }
 });
-
-document.getElementById("playNowBtn").addEventListener("click", () => {
-    const user = auth.currentUser;
-
-    if (user) {
-        const userEmail = encodeURIComponent(user.email);
-        const serverURL = `https://theasylum.vercel.app/api/getUserEmail?email=${userEmail}`;
-
-        fetch(serverURL)
-            .then(response => response.json())
-            .then(data => {
-                console.log("Email enviado al servidor:", data.email);
-                showAlert("Iniciando el juego...", "success");
-            })
-            .catch(error => {
-                console.error("Error al enviar el email:", error);
-                showAlert("Hubo un error al iniciar el juego.", "error");
-            });
-    } else {
-        showAlert("No estás autenticado. Inicia sesión para jugar.", "error");
-        window.location.href = "account.html";
-    }
-});
-
-
-
