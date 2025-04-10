@@ -1,6 +1,6 @@
 import { getAuth, sendPasswordResetEmail, onAuthStateChanged, signOut, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getFirestore, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, deleteDoc, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDT-A7mlLu6X3LRV5AFVm9xqzIRMBlWfkk",
@@ -15,6 +15,16 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+
+const friendList = document.getElementById("friendList");
+const chatHeader = document.getElementById("chatWith");
+const chatUsername = document.getElementById("chatUsername");
+const chatMessages = document.getElementById("chatMessages");
+const messageInput = document.getElementById("messageInput");
+
+let currentUser = null;
+let selectedFriend = null;
+let typingTimeout;
 
 function showAlert(message, type = "success") {
     const alertBox = document.getElementById("alertBox");
@@ -65,6 +75,7 @@ async function loadUserData() {
 onAuthStateChanged(auth, (user) => {
     if (user) {
         loadUserData();
+        loadFriendsList();
     } else {
         showAlert("No estás autenticado. Por favor, inicia sesión.", "error");
         window.location.href = "account.html";
@@ -125,3 +136,96 @@ document.getElementById("deleteAccountBtn").addEventListener("click", async () =
         showAlert("Hubo un error al eliminar la cuenta: " + error.message, "error");
     }
 });
+
+
+async function loadFriendsList() {
+    const usersRef = collection(db, "users");
+    const querySnapshot = await getDocs(usersRef);
+    friendList.innerHTML = "";
+
+    querySnapshot.forEach((docSnap) => {
+        if (docSnap.id !== currentUser.uid) {
+            const userData = docSnap.data();
+            const li = document.createElement("li");
+            li.textContent = userData.username || "Usuario";
+            li.onclick = () => selectFriend(docSnap.id, userData.username);
+            friendList.appendChild(li);
+        }
+    });
+}
+
+function selectFriend(userId, username) {
+    selectedFriend = userId;
+    chatUsername.textContent = username;
+    chatMessages.innerHTML = "";
+
+    const chatRoomId = getChatRoomId(currentUser.uid, selectedFriend);
+
+    const chatMessagesRef = collection(db, "chats", chatRoomId, "messages");
+    onSnapshot(chatMessagesRef, (snapshot) => {
+        chatMessages.innerHTML = "";
+        snapshot.forEach((docSnap) => {
+            const msg = docSnap.data();
+            const messageElement = document.createElement("p");
+            messageElement.innerHTML = `<strong>${msg.sender === currentUser.uid ? "Tú" : username}:</strong> ${msg.text}`;
+            chatMessages.appendChild(messageElement);
+        });
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+
+    const typingDocRef = doc(db, "chats", chatRoomId, "typing");
+    onSnapshot(typingDocRef, (docSnap) => {
+        const typingStatus = docSnap.data();
+        if (typingStatus && typingStatus[selectedFriend]) {
+            chatHeader.textContent = `Chat con: ${username} (Está escribiendo...)`;
+        } else {
+            chatHeader.textContent = `Chat con: ${username}`;
+        }
+    });
+}
+
+function getChatRoomId(uid1, uid2) {
+    return uid1 < uid2 ? `${uid1}_${uid2}` : `${uid2}_${uid1}`;
+}
+
+async function sendMessage() {
+    if (!selectedFriend || !messageInput.value.trim()) return;
+
+    const chatRoomId = getChatRoomId(currentUser.uid, selectedFriend);
+    const messageText = messageInput.value.trim();
+
+    const messageRef = doc(collection(db, "chats", chatRoomId, "messages"));
+    await setDoc(messageRef, {
+        text: messageText,
+        sender: currentUser.uid,
+        timestamp: serverTimestamp(),
+    });
+
+    // Limpiar el input después de enviar el mensaje
+    messageInput.value = "";
+    notifyTypingStatus(false);
+}
+
+messageInput.addEventListener("input", () => {
+    if (!selectedFriend) return;
+    notifyTypingStatus(true);
+});
+
+function notifyTypingStatus(isTyping) {
+    const chatRoomId = getChatRoomId(currentUser.uid, selectedFriend);
+    const typingRef = doc(db, "chats", chatRoomId, "typing");
+
+    if (isTyping) {
+        updateDoc(typingRef, {
+            [currentUser.uid]: true,
+        });
+    } else {
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(() => {
+            updateDoc(typingRef, {
+                [currentUser.uid]: false,
+            });
+        }, 1500);
+    }
+}

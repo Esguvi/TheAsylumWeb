@@ -220,6 +220,116 @@ textarea {
   margin-bottom: 20px;
 }
 
+/* Estilo para el chat */
+.chat-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 0;
+}
+.chat-container {
+  display: flex;
+  width: 100%;
+  max-width: 1100px;
+  background: #1A1A1A;
+  border: 2px solid #8B0000;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(139, 0, 0, 0.5);
+  overflow: hidden;
+}
+.friends-list {
+  width: 30%;
+  background-color: #121212;
+  padding: 20px;
+  border-right: 2px solid #8B0000;
+}
+.friends-list h3 {
+  font-size: 24px;
+  color: #D10000;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.friends-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.friends-list li {
+  padding: 12px 15px;
+  margin-bottom: 10px;
+  background-color: #1F1F1F;
+  color: #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.friends-list li:hover {
+  background-color: #8B0000;
+  color: #fff;
+}
+.chat-box {
+  width: 70%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.chat-header {
+  font-size: 20px;
+  font-weight: bold;
+  color: #D10000;
+  margin-bottom: 15px;
+}
+.chat-messages {
+  background-color: #1F1F1F;
+  flex-grow: 1;
+  padding: 15px;
+  border-radius: 8px;
+  overflow-y: auto;
+  max-height: 400px;
+  margin-bottom: 15px;
+  border: 1px solid #8B0000;
+}
+.chat-messages p {
+  margin: 8px 0;
+  color: #fff;
+  background-color: #2A2A2A;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 80%;
+  word-break: break-word;
+}
+.chat-input {
+  display: flex;
+  gap: 10px;
+}
+.chat-input input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #8B0000;
+  background-color: #121212;
+  color: white;
+  font-size: 16px;
+}
+.chat-input input::placeholder {
+  color: #777;
+}
+.chat-input button {
+  padding: 12px 16px;
+  background-color: #D10000;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.chat-input button:hover {
+  background-color: #a30000;
+}
+
 
 /* Estilos de títulos */
 h3 {

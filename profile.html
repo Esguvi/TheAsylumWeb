@@ -63,6 +63,31 @@
     </section>
 
 
+    <section class="chat-section">
+        <div class="chat-container">
+            <div class="friends-list">
+                <h3>Amigos</h3>
+                <ul id="friendList">
+                    <!-- Lista de amigos generada dinámicamente -->
+                    <li onclick="selectFriend('Usuario123')">Usuario123</li>
+                    <li onclick="selectFriend('DevJuan')">DevJuan</li>
+                </ul>
+            </div>
+    
+            <div class="chat-box">
+                <div class="chat-header" id="chatWith">Chat con: <span id="chatUsername">Selecciona un amigo</span></div>
+                <div class="chat-messages" id="chatMessages">
+                    <!-- Mensajes se mostrarán aquí -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Escribe un mensaje...">
+                    <button onclick="sendMessage()"><i class="fa fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
     <section class="footer">
         <div class="footer-row">
             <div class="footer-col">
