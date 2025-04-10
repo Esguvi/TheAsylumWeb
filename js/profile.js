@@ -1,6 +1,6 @@
 import { getAuth, sendPasswordResetEmail, onAuthStateChanged, signOut, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-import { getFirestore, doc, getDoc, deleteDoc, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc, deleteDoc, collection, getDocs, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDT-A7mlLu6X3LRV5AFVm9xqzIRMBlWfkk",
@@ -195,6 +195,9 @@ async function sendMessage() {
     const chatRoomId = getChatRoomId(currentUser.uid, selectedFriend);
     const messageText = messageInput.value.trim();
 
+    if (messageText === "")
+        return;
+
     const messageRef = doc(collection(db, "chats", chatRoomId, "messages"));
     await setDoc(messageRef, {
         text: messageText,
@@ -202,7 +205,6 @@ async function sendMessage() {
         timestamp: serverTimestamp(),
     });
 
-    // Limpiar el input después de enviar el mensaje
     messageInput.value = "";
     notifyTypingStatus(false);
 }
