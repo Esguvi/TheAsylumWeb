@@ -11,13 +11,13 @@ const firebaseConfig = {
     messagingSenderId: "585770314222",
     appId: "1:585770314222:web:33135f709bbca0969286ff",
     measurementId: "G-XSDM25Q5D0",
-    databaseURL: "https://theasylum-game-default-rtdb.europe-west1.firebasedatabase.app"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const rtdb = getDatabase(databaseURL);
+const databaseURL = "https://theasylum-game-default-rtdb.europe-west1.firebasedatabase.app";
+const rtdb = getDatabase(app, databaseURL);
 
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
