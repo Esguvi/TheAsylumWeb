@@ -137,8 +137,6 @@ sendChatBtn.addEventListener("click", async () => {
     const message = chatInput.value.trim();
     const user = auth.currentUser;
 
-    console.log("Antes de enviar:", chatInput.value); // Verifica el valor antes de enviar
-
     if (message && user) {
         try {
             const userRef = doc(db, "users", user.uid);
@@ -151,24 +149,24 @@ sendChatBtn.addEventListener("click", async () => {
                 username = userData.username || username;
             }
 
+            // Enviar el mensaje a la base de datos
             await push(ref(rtdb, "socialChat"), {
                 user: username,
                 message: message,
                 timestamp: Date.now()
             });
 
-            document.getElementById("chatInput").value = "";  
-            console.log("Después de limpiar:", document.getElementById("chatInput").value); // Verifica si el valor se limpió
-
-            chatInput.focus();
+            // Limpiar el input después de enviar el mensaje
+            chatInput.value = "";   // Esto debería funcionar para limpiar el input
+            chatInput.focus();      // Pone el foco de nuevo en el input para que el usuario pueda seguir escribiendo
             console.log("Mensaje enviado y textarea limpiado.");
+
         } catch (error) {
             showAlert("No se pudo enviar el mensaje.", "error");
             console.error(error);
         }
     }
 });
-
 
 chatInput.addEventListener("keydown", (e) => {
     if (e.key === "Enter" && !e.shiftKey) {
