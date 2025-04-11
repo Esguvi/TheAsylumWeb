@@ -10,13 +10,14 @@ const firebaseConfig = {
     storageBucket: "theasylum-game.firebasestorage.app",
     messagingSenderId: "585770314222",
     appId: "1:585770314222:web:33135f709bbca0969286ff",
-    measurementId: "G-XSDM25Q5D0"
+    measurementId: "G-XSDM25Q5D0",
+    databaseURL: "https://theasylum-game-default-rtdb.europe-west1.firebasedatabase.app"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const rtdb = getDatabase(app);
+const rtdb = getDatabase(databaseURL);
 
 const chatMessages = document.getElementById("chatMessages");
 const chatInput = document.getElementById("chatInput");
