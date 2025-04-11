@@ -205,7 +205,7 @@ textarea {
   border-radius: 8px;
   box-shadow: 0px 4px 10px rgba(139, 0, 0, 0.5);
   border: 2px solid #8B0000;
-  max-width: 595px;
+  max-width: 550px;
   width: 100%;
 }
 .chat-container h3 {

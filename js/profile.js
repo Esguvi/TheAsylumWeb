@@ -149,16 +149,14 @@ sendChatBtn.addEventListener("click", async () => {
                 username = userData.username || username;
             }
 
-            // Enviar el mensaje a la base de datos
             await push(ref(rtdb, "socialChat"), {
                 user: username,
                 message: message,
                 timestamp: Date.now()
             });
 
-            // Limpiar el input después de enviar el mensaje
-            chatInput.value = "";   // Esto debería funcionar para limpiar el input
-            chatInput.focus();      // Pone el foco de nuevo en el input para que el usuario pueda seguir escribiendo
+            chatInput.value = "";  
+            chatInput.focus();
             console.log("Mensaje enviado y textarea limpiado.");
 
         } catch (error) {
