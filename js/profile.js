@@ -1,6 +1,7 @@
 import { getAuth, sendPasswordResetEmail, onAuthStateChanged, signOut, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
 import { getFirestore, doc, getDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-database.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDT-A7mlLu6X3LRV5AFVm9xqzIRMBlWfkk",
@@ -15,6 +16,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
+const rtdb = getDatabase(app);
+
+const chatMessages = document.getElementById("chatMessages");
+const chatInput = document.getElementById("chatInput");
+const sendChatBtn = document.getElementById("sendChatBtn");
 
 function showAlert(message, type = "success") {
     const alertBox = document.getElementById("alertBox");
@@ -124,4 +130,59 @@ document.getElementById("deleteAccountBtn").addEventListener("click", async () =
     } catch (error) {
         showAlert("Hubo un error al eliminar la cuenta: " + error.message, "error");
     }
+});
+
+sendChatBtn.addEventListener("click", async () => {
+    const message = chatInput.value.trim();
+    const user = auth.currentUser;
+
+    console.log("Antes de enviar:", chatInput.value); // Verifica el valor antes de enviar
+
+    if (message && user) {
+        try {
+            const userRef = doc(db, "users", user.uid);
+            const docSnap = await getDoc(userRef);
+
+            let username = user.email.split('@')[0];
+
+            if (docSnap.exists()) {
+                const userData = docSnap.data();
+                username = userData.username || username;
+            }
+
+            await push(ref(rtdb, "socialChat"), {
+                user: username,
+                message: message,
+                timestamp: Date.now()
+            });
+
+            document.getElementById("chatInput").value = "";  
+            console.log("Después de limpiar:", document.getElementById("chatInput").value); // Verifica si el valor se limpió
+
+            chatInput.focus();
+            console.log("Mensaje enviado y textarea limpiado.");
+        } catch (error) {
+            showAlert("No se pudo enviar el mensaje.", "error");
+            console.error(error);
+        }
+    }
+});
+
+
+chatInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault(); 
+        sendChatBtn.click(); 
+    }
+});
+
+onChildAdded(ref(rtdb, "socialChat"), (snapshot) => {
+    const data = snapshot.val();
+    const messageElem = document.createElement("p");
+    const date = new Date(data.timestamp);
+    const time = `${date.getHours()}:${String(date.getMinutes()).padStart(2, "0")}`;
+
+    messageElem.innerHTML = `<strong>${data.user}</strong> <span style="color:gray;">[${time}]</span>: ${data.message}`;
+    chatMessages.appendChild(messageElem);
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 });
