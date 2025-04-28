@@ -6,12 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 async function setLanguage(lang) {
     try {
-        const response = await fetch("../public/json/lang.json");
+        const response = await fetch("json/lang.json");
         const translations = await response.json();
 
         localStorage.setItem("lang", lang);
 
-        document.getElementById("current-lang").innerHTML = `<img id="current-lang-flag" src="../public/images/flags/${lang.toLowerCase()}.svg" alt="Language" style="margin-right: 8px;"> <span id="lang-text">${lang}</span>`;
+        document.getElementById("current-lang").innerHTML = `<img id="current-lang-flag" src="images/flags/${lang.toLowerCase()}.svg" alt="Language" style="margin-right: 8px;"> <span id="lang-text">${lang}</span>`;
 
         document.querySelectorAll("[data-lang]").forEach(element => {
             let key = element.getAttribute("data-lang");
@@ -54,7 +54,7 @@ function updateDropdown(currentLang) {
     langOption.classList.add("language-option");
     langOption.onclick = () => setLanguage(otherLang);
     
-    langOption.innerHTML = `<img src="../public/images/flags/${otherLang.toLowerCase()}.svg" alt="${otherLang}" style="margin-right: 8px;"> ${otherLang}`;
+    langOption.innerHTML = `<img src="images/flags/${otherLang.toLowerCase()}.svg" alt="${otherLang}" style="margin-right: 8px;"> ${otherLang}`;
     
     dropdown.appendChild(langOption);
 }
