@@ -36,16 +36,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <link rel="stylesheet" href="../styles/styles.css">
     <link rel="icon" type="image/x-icon" href="../public/images/favicon.ico">
-    <title>Contraseña olvidada - The Asylum</title>
+    <title>Contacto - The Asylum</title>
 </head>
 
-<body data-page="forgotten-passwd">
+<body data-page="contact">
 
     <div class="navbar">
-        <a href="../pages/index.html" data-lang="home"><i class="fa fa-fw fa-home"></i>Inicio</a>
-        <a href="../pages/contact.html" data-lang="contact"><i class="fa fa-fw fa-envelope"></i>Contacto</a>
+        <a href="../public/index.html" data-lang="home"><i class="fa fa-fw fa-home"></i>Inicio</a>
+        <a class="active" href="../public/contact.html" data-lang="contact"><i class="fa fa-fw fa-envelope"></i>Contacto</a>
         <div class="navbar-right">
-            <a href="../pages/account.html" data-lang="account"><i class="fa fa-fw fa-user"></i>Cuenta</a>
+            <a href="../public/account.html" data-lang="account"><i class="fa fa-fw fa-user"></i>Cuenta</a>
         </div>
     </div>
 
@@ -55,7 +55,8 @@
             <img id="current-lang-flag" src="../public/images/flags/en.svg" alt="Language">
             <span id="lang-text">EN</span>
         </div>
-        <div class="language-dropdown" id="language-dropdown"></div>
+        <div class="language-dropdown" id="language-dropdown">
+        </div>
     </div>
 
 
@@ -65,19 +66,38 @@
     </div>
 
 
-    <section class="fpasswd-section">
-        <div class="fpasswd-container">
-            <div class="fpasswd-box">
-                <h3 data-lang="forgotten-passwd">Contraseña olvidada</h3>
-                <form id="forgottenpasswd">
-                    <label for="emailfpasswd" data-lang="email">Correo electrónico:</label>
-                    <input placeholder="example@theasylum.com" type="email" id="emailfpasswd" required>
-                    <button id="fPasswordBtn" data-lang="submit">Enviar</button>
-                </form>  
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-box">
+                <h3 data-lang="contact-us">Contáctanos</h3>
+                <form id="contactForm">
+                    <label for="fullname" data-lang="fullname">Nombre completo:</label>
+                    <input type="text" id="fullname" placeholder="The Asylum" required>
+
+                    <label for="username" data-lang="username">Nombre de usuario:</label>
+                    <input type="text" id="username" placeholder="theasylum" required>
+    
+                    <label for="email" data-lang="email">Correo electrónico:</label>
+                    <input type="email" id="email" placeholder="example@theasylum.com" required>
+    
+                    <label for="contactReason" data-lang="contact-reason">Motivo del contacto:</label>
+                    <select id="contactReason" required>
+                        <option value="" disabled data-lang="select-contact-reason" selected>Selecciona un motivo</option>
+                        <option value="support" data-lang="support">Soporte técnico</option>
+                        <option value="suggestion" data-lang="suggestion">Sugerencia</option>
+                        <option value="comments" data-lang="comments">Comentarios</option>
+                        <option value="other" data-lang="other">Otro</option>
+                    </select>
+    
+                    <label for="message" data-lang="message">Mensaje:</label>
+                    <textarea id="message" placeholder="The Asylum..." required></textarea>
+    
+                    <button type="submit" data-lang="submit">Enviar</button>
+                </form>
             </div>
         </div>
     </section>
-
+    
 
     <section class="footer">
         <div class="footer-row">
@@ -87,9 +107,9 @@
             <div class="footer-col">
                 <h4>The Asylum</h4>
                 <ul class="links">
-                    <li><a href="../pages/index.html" data-lang="home">Inicio</a></li>
-                    <li><a href="../pages/contact.html" data-lang="contact">Contacto</a></li>
-                    <li><a href="../pages/account.html" data-lang="account">Cuenta</a></li>
+                    <li><a href="../public/index.html" data-lang="home">Inicio</a></li>
+                    <li><a href="../public/contact.html" data-lang="contact">Contacto</a></li>
+                    <li><a href="../public/account.html" data-lang="account">Cuenta</a></li>
                 </ul>
             </div>
             <div class="footer-col">
@@ -132,8 +152,38 @@
 
 
     <!-- SCRIPTS JAVASCRIPT -->
-    <script src="../js/script.js"></script>  
-    <script type="module" src="../js/fpasswd.js"></script>
+    <script src="../js/script.js"></script>
+    <script>
+        const form = document.getElementById('contactForm');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const data = {
+                name: document.getElementById('fullname').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                contactReason: document.getElementById('contactReason').value,
+                message: document.getElementById('message').value,
+            };
+
+            try {
+                const res = await fetch('https://theasylum.vercel.app/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await res.json();
+                alert('Mensaje enviado correctamente');
+                form.reset();
+
+            } catch (error) {
+                console.error('Error al enviar el formulario:', error);
+                alert('Error al enviar el mensaje');
+            }
+        });
+    </script>
 
 </body>
 
