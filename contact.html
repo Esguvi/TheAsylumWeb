@@ -71,11 +71,11 @@
             <div class="contact-box">
                 <h3 data-lang="contact-us">Contáctanos</h3>
                 <form id="contactForm">
-                    <label for="name" data-lang="fullname">Nombre completo:</label>
-                    <input type="text" id="name" placeholder="The Asylum" required>
+                    <label for="fullname" data-lang="fullname">Nombre completo:</label>
+                    <input type="text" id="fullname" placeholder="The Asylum" required>
 
-                    <label for="name" data-lang="username">Nombre de usuario:</label>
-                    <input type="text" id="name" placeholder="theasylum" required>
+                    <label for="username" data-lang="username">Nombre de usuario:</label>
+                    <input type="text" id="username" placeholder="theasylum" required>
     
                     <label for="email" data-lang="email">Correo electrónico:</label>
                     <input type="email" id="email" placeholder="example@theasylum.com" required>
@@ -153,6 +153,37 @@
 
     <!-- SCRIPTS JAVASCRIPT -->
     <script src="js/script.js"></script>
+    <script>
+        const form = document.getElementById('contactForm');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const data = {
+                name: document.getElementById('name').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                contactReason: document.getElementById('contactReason').value,
+                message: document.getElementById('message').value,
+            };
+
+            try {
+                const res = await fetch('https://theasylum.vercel.app/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await res.json();
+                alert('Mensaje enviado correctamente');
+                form.reset();
+
+            } catch (error) {
+                console.error('Error al enviar el formulario:', error);
+                alert('Error al enviar el mensaje');
+            }
+        });
+    </script>
 
 </body>
 
