@@ -3,20 +3,21 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 // Función para manejar la solicitud de la API
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Configura las cabeceras CORS
-  res.setHeader('Access-Control-Allow-Origin', '*');  // Cambia '*' por tu dominio si quieres limitar el acceso
+  // Configura las cabeceras CORS para permitir solicitudes desde cualquier origen
+  res.setHeader('Access-Control-Allow-Origin', '*');  // Permite solicitudes desde cualquier dominio (cambia '*' por tu dominio si es necesario)
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
+  // Responde a las solicitudes OPTIONS (preflight)
   if (req.method === 'OPTIONS') {
-    return res.status(200).end(); // Responde a las solicitudes preflight (OPTIONS)
+    return res.status(200).end();
   }
 
-  // Verifica que la solicitud sea POST
+  // Si el método es POST
   if (req.method === 'POST') {
     const { name, username, email, contactReason, message } = req.body;
 
-    // Crea un transportador usando Nodemailer
+    // Configura el transportador de Nodemailer con las credenciales del correo
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
