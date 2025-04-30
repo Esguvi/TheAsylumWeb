@@ -65,6 +65,27 @@ function toggleDropdown() {
 }
 
 
+const countdownDate = new Date("2025-07-01T00:00:00").getTime();
+const timerEl = document.getElementById("timer");
+const updateCountdown = () => {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
+
+    if (distance < 0) {
+        timerEl.textContent = "¡Ya está disponible!";
+        return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    timerEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+};
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
 
 function showAlert(message, type = "success") {
     const alertBox = document.getElementById("alertBox");

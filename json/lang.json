@@ -1,6 +1,8 @@
 {
     "ES": {
         "home": "Inicio",
+        "home-description": "Explora los secretos del manicomio abandonado y sobrevive al horror...",
+        "countdown-title": "Lanzamiento en:",
         "contact": "Contacto",
         "contact-us": "Contáctanos",
         "contact-reason": "Motivo del contacto",
@@ -45,6 +47,8 @@
     },
     "EN": {
         "home": "Home",
+        "home-description": "Explore the secrets of the abandoned asylum and survive the horror...",
+        "countdown-title": "Launching in:",
         "contact": "Contact",
         "contact-us": "Contact us",
         "contact-reason": "Contact reason",
