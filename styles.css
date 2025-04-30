@@ -412,6 +412,9 @@ select {
 .alert.info {
   background-color: #17a2b8;
 }
+.alert.loading {
+  background-color: #ffc107;
+}
 .alert i {
   font-size: 20px;
 }

@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     setLanguage(lang);
     updateDropdown(lang);
 });
-
+ 
 async function setLanguage(lang) {
     try {
         const response = await fetch("json/lang.json");
@@ -63,3 +63,64 @@ function updateDropdown(currentLang) {
 function toggleDropdown() {
     document.getElementById("language-dropdown").classList.toggle("show");
 }
+
+
+
+function showAlert(message, type = "success") {
+    const alertBox = document.getElementById("alertBox");
+    const alertMessage = document.getElementById("alertMessage");
+    const alertIcon = document.getElementById("alertIcon");
+
+    alertIcon.className = '';
+
+    if (type === "success") {
+        alertBox.className = `alert success`;
+        alertIcon.classList.add("fas", "fa-check-circle");
+    } else if (type === "error") {
+        alertBox.className = `alert error`;
+        alertIcon.classList.add("fas", "fa-times-circle"); 
+    } else if (type === "info") {
+        alertBox.className = `alert info`;
+        alertIcon.classList.add("fas", "fa-info-circle");
+    }
+    else if (type === "loading") {
+        alertBox.className = `alert loading`;
+        alertIcon.classList.add("fas", "fa-spinner", "fa-spin");
+    }
+
+    alertMessage.textContent = message;
+    alertBox.classList.remove("hidden");
+
+    setTimeout(() => {
+        alertBox.classList.add("hidden");
+    }, 3000);
+}
+
+const form = document.getElementById('contact-form');
+
+form.addEventListener('submit', async function (e) {
+e.preventDefault();
+
+showAlert("Enviando...", "loading");
+
+const formData = new FormData(form);
+
+try {
+    const response = await fetch(form.action, {
+    method: form.method,
+    body: formData,
+    headers: {
+        'Accept': 'application/json'
+    }
+    });
+
+    if (response.ok) {
+    showAlert("¡Tu mensaje ha sido enviado correctamente!", "success");
+    form.reset();
+    } else {
+    showAlert("Ocurrió un error al enviar el formulario. Intenta de nuevo.", "error");
+    }
+} catch (error) {
+    showAlert("No se pudo conectar con el servidor. Intenta más tarde.", "error");
+}
+});

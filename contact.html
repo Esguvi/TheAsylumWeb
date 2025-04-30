@@ -69,34 +69,36 @@
     <section class="contact-section">
         <div class="contact-container">
             <div class="contact-box">
-                <h3 data-lang="contact-us">Contáctanos</h3>
-                <form id="contactForm">
-                    <label for="name" data-lang="fullname">Nombre completo:</label>
-                    <input type="text" id="name" placeholder="The Asylum" required>
-
-                    <label for="name" data-lang="username">Nombre de usuario:</label>
-                    <input type="text" id="name" placeholder="theasylum" required>
-    
-                    <label for="email" data-lang="email">Correo electrónico:</label>
-                    <input type="email" id="email" placeholder="example@theasylum.com" required>
-    
-                    <label for="contactReason" data-lang="contact-reason">Motivo del contacto:</label>
-                    <select id="contactReason" required>
-                        <option value="" disabled data-lang="select-contact-reason" selected>Selecciona un motivo</option>
-                        <option value="support" data-lang="support">Soporte técnico</option>
-                        <option value="suggestion" data-lang="suggestion">Sugerencia</option>
-                        <option value="comments" data-lang="comments">Comentarios</option>
-                        <option value="other" data-lang="other">Otro</option>
-                    </select>
-    
-                    <label for="message" data-lang="message">Mensaje:</label>
-                    <textarea id="message" placeholder="The Asylum..." required></textarea>
-    
-                    <button type="submit" data-lang="submit">Enviar</button>
-                </form>
+            <h3 data-lang="contact-us">Contáctanos</h3>
+        
+            <form id="contact-form" action="https://formspree.io/f/xldbganj" method="POST">
+                <label for="fullname" data-lang="fullname">Nombre completo:</label>
+                <input type="text" id="fullname" name="Nombre completo:" placeholder="The Asylum" required>
+        
+                <label for="username" data-lang="username">Nombre de usuario:</label>
+                <input type="text" id="username" name="Nombre de usuario:" placeholder="theasylum" required>
+        
+                <label for="email" data-lang="email">Correo electrónico:</label>
+                <input type="email" id="email" name="Correo electrónico:" placeholder="example@theasylum.com" required>
+        
+                <label for="contactReason" data-lang="contact-reason">Motivo del contacto:</label>
+                <select id="contactReason" name="Motivo:" required>
+                <option value="" disabled data-lang="select-contact-reason" selected>Selecciona un motivo</option>
+                <option value="support" data-lang="support">Soporte técnico</option>
+                <option value="suggestion" data-lang="suggestion">Sugerencia</option>
+                <option value="comments" data-lang="comments">Comentarios</option>
+                <option value="other" data-lang="other">Otro</option>
+                </select>
+        
+                <label for="message" data-lang="message">Mensaje:</label>
+                <textarea id="message" name="Mensaje:" placeholder="The Asylum..." required></textarea>
+        
+                <button type="submit" data-lang="submit">Enviar</button>
+            </form>
             </div>
         </div>
     </section>
+      
     
 
     <section class="footer">
