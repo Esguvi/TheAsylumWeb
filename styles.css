@@ -80,8 +80,8 @@ html {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 120px;
-  padding-bottom: 120px;
+  padding-top: 150px;
+  padding-bottom: 150px;
   background-color: #0E0E0E;
   position: relative;
 }
@@ -120,6 +120,7 @@ html {
   display: inline-block;
   border: 1px solid #8B0000;
   box-shadow: 0px 2px 6px rgba(139, 0, 0, 0.4);
+  width: inherit;
 }
 #timer {
   font-size: 2em;
@@ -131,12 +132,12 @@ html {
 /* Contacto */
 .contact-section {
   width: 100%;
-  height: 100vh;
+  max-width: 800px;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
-  padding-top: 80px;
-  padding-bottom: 900px;
+  align-items: center;
+  padding-top: 150px;
+  padding-bottom: 150px;
 }
 .contact-container {
   width: 100%;
@@ -169,11 +170,11 @@ textarea {
 .auth-section {
   width: 100%;
   max-width: 800px;
-  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: calc(100vh - 60px);
+  padding-top: 150px;
+  padding-bottom: 150px;
 }
 .auth-container {
   display: flex;
@@ -183,6 +184,7 @@ textarea {
 }
 .auth-box {
   background: #1A1A1A;
+  padding-top: 100px;
   padding: 25px;
   border-radius: 8px;
   width: 48%;
@@ -348,8 +350,52 @@ textarea {
 }
 
 
+/* Estilos otras páginas */
+.pages {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 150px; 
+  padding-bottom: 150px;
+}
+.pages-content {
+  background: #1A1A1A;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(139, 0, 0, 0.5);
+  border: 2px solid #8B0000;
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  text-align: justify;
+}
+.pages-content h1 {
+  font-size: 50px;
+  color: #D10000;
+  margin-bottom: 20px;
+}
+.pages-content h2 {
+  margin-top: 70px
+}
+.pages-content p {
+  font-size: 18px;
+  color: #EAEAEA;
+  line-height: 1.6;
+  font-family: 'Poppins', sans-serif;
+  margin-bottom: 20px;
+}
+.pages-content ul {
+  padding-left: 0;
+  margin: 0;
+  align-items: start;
+  text-align: justify;
+}
+
+
 /* Estilos de títulos */
-h3 {
+h1, h3 {
   text-align: center;
   font-family: 'AHS_P', sans-serif;
   font-size: 30px;
@@ -614,6 +660,7 @@ select {
   margin-top: 30px;
   gap: 30px;
   cursor: pointer;
+  justify-content: center;
 }
 .footer-col .icons i {
   color: #afb6c7;

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (function () {
+            if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+                window.chatbase = (...arguments) => {
+                    if (!window.chatbase.q) { window.chatbase.q = [] }
+                    window.chatbase.q.push(arguments)
+                };
+                window.chatbase = new Proxy(window.chatbase, {
+                    get(target, prop) {
+                        if (prop === "q") { return target.q }
+                        return (...args) => target(prop, ...args)
+                    }
+                })
+            }
+            const onLoad = function () {
+                const script = document.createElement("script");
+                script.src = "https://www.chatbase.co/embed.min.js";
+                script.id = "Ru8bibSTUivgs4aajq7S-";
+                script.domain = "www.chatbase.co";
+                document.body.appendChild(script)
+            };
+            if (document.readyState === "complete") {
+                onLoad()
+            } else {
+                window.addEventListener("load", onLoad)
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <title>Política de Privacidad - The Asylum</title>
+</head>
+
+<body data-page="privacy-policy">
+
+    <div class="navbar">
+        <a href="index.html" data-lang="home"><i class="fa fa-fw fa-home"></i>Inicio</a>
+        <a href="contact.html" data-lang="contact"><i class="fa fa-fw fa-envelope"></i>Contacto</a>
+        <div class="navbar-right">
+            <a href="account.html" data-lang="account"><i class="fa fa-fw fa-user"></i>Cuenta</a>
+        </div>
+    </div>
+
+
+    <div class="language-selector">
+        <div class="language-button" id="current-lang" onclick="toggleLanguage()">
+            <img id="current-lang-flag" src="images/flags/en.svg" alt="Language">
+            <span id="lang-text">EN</span>
+        </div>
+        <div class="language-dropdown" id="language-dropdown">
+        </div>
+    </div>
+
+
+    <section class="pages">
+        <div class="pages-content">
+            <h1 data-lang="privacy-policy">Política de Privacidad</h1>
+                <p data-lang="privacy-policy-description">
+                    En <strong data-lang="the-asylum">The Asylum</strong>, nos tomamos muy en serio la privacidad de nuestros usuarios. Esta política de privacidad describe cómo recopilamos, usamos y protegemos la información personal que nos proporcionas cuando usas nuestro sitio web. Al acceder a nuestro sitio, aceptas los términos y condiciones de esta política.
+                </p>
+
+                <h2 data-lang="privacy-policy-section-1">1. Información que recopilamos</h2>
+                <p data-lang="privacy-policy-collection">
+                    Recopilamos información de los usuarios de diversas formas cuando interactúan con nuestro sitio. Esto incluye:
+                    <ul>
+                        <li data-lang="privacy-policy-info-personal"><strong>Información personal</strong>: Nombre, dirección de correo electrónico, información de pago, etc. que nos proporcionas cuando creas una cuenta, realizas una compra o te registras en nuestra newsletter.</li>
+                        <li data-lang="privacy-policy-info-navigation"><strong>Datos de navegación</strong>: Recopilamos información sobre cómo navegas en nuestro sitio web, incluyendo tu dirección IP, tipo de navegador, páginas visitadas, tiempo de permanencia, etc.</li>
+                        <li data-lang="privacy-policy-info-cookies"><strong>Cookies y tecnologías similares</strong>: Utilizamos cookies para mejorar la experiencia del usuario y personalizar el contenido. Las cookies pueden almacenar preferencias, datos de inicio de sesión y otras configuraciones.</li>
+                    </ul>
+                </p>
+
+                <h2 data-lang="privacy-policy-section-2">2. Cómo usamos tu información</h2>
+                <p data-lang="privacy-policy-usage">
+                    Usamos la información que recopilamos para:
+                    <ul>
+                        <li data-lang="privacy-policy-use-1">Proporcionar y mejorar nuestros servicios.</li>
+                        <li data-lang="privacy-policy-use-2">Personalizar tu experiencia en el sitio.</li>
+                        <li data-lang="privacy-policy-use-3">Procesar pagos y cumplir con las transacciones.</li>
+                        <li data-lang="privacy-policy-use-4">Enviarte comunicaciones, como actualizaciones del sitio, promociones o información relacionada con tu cuenta.</li>
+                        <li data-lang="privacy-policy-use-5">Cumplir con las leyes y regulaciones aplicables.</li>
+                    </ul>
+                </p>
+
+                <h2 data-lang="privacy-policy-section-3">3. Compartir tu información</h2>
+                <p data-lang="privacy-policy-sharing">
+                    No compartimos, vendemos ni alquilamos tu información personal a terceros. Sin embargo, podemos compartirla con:
+                    <ul>
+                        <li data-lang="privacy-policy-sharing-providers"><strong>Proveedores de servicios</strong>: Proveedores de pago, servicios de correo electrónico, y otros terceros que nos ayudan a operar el sitio y procesar las transacciones.</li>
+                        <li data-lang="privacy-policy-sharing-legal"><strong>Obligaciones legales</strong>: Si la ley lo requiere o para proteger nuestros derechos, podemos divulgar tu información personal a las autoridades competentes.</li>
+                    </ul>
+                </p>
+
+                <h2 data-lang="privacy-policy-section-4">4. Seguridad de la información</h2>
+                <p data-lang="privacy-policy-security">
+                    Tomamos medidas de seguridad adecuadas para proteger la información personal que nos proporcionas, incluidos sistemas de encriptación y prácticas de protección contra accesos no autorizados. Sin embargo, ten en cuenta que ninguna transmisión de datos a través de Internet puede garantizar una seguridad absoluta.
+                </p>
+
+                <h2 data-lang="privacy-policy-section-5">5. Derechos de los usuarios</h2>
+                <p data-lang="privacy-policy-rights">
+                    Según las leyes de privacidad aplicables, puedes tener derecho a:
+                    <ul>
+                        <li data-lang="privacy-policy-right-1">Acceder, corregir o eliminar tu información personal.</li>
+                        <li data-lang="privacy-policy-right-2">Solicitar la limitación del procesamiento de tu información.</li>
+                        <li data-lang="privacy-policy-right-3">Optar por no recibir comunicaciones promocionales.</li>
+                    </ul>
+                    Si deseas ejercer alguno de estos derechos, puedes ponerte en contacto con nosotros a través de la información proporcionada al final de esta política.
+                </p>
+
+                <h2 data-lang="privacy-policy-section-6">6. Cookies</h2>
+                <p data-lang="privacy-policy-cookies">
+                    Usamos cookies para mejorar la experiencia del usuario en nuestro sitio web. Puedes configurar tu navegador para rechazar las cookies, pero esto podría afectar el funcionamiento de algunas funciones del sitio.
+                </p>
+
+                <h2 data-lang="privacy-policy-section-7">7. Cambios en esta política</h2>
+                <p data-lang="privacy-policy-changes">
+                    Nos reservamos el derecho de actualizar esta política de privacidad en cualquier momento. Cualquier cambio será publicado en esta página, con una fecha de revisión actualizada. Te recomendamos que revises periódicamente esta política para estar al tanto de cómo estamos protegiendo tu información.
+                </p>
+        </div>
+    </section>
+    
+
+    <section class="footer">
+        <div class="footer-row">
+            <div class="footer-col">
+                <h4 data-lang="copyright">&copy; 2025 The Asylum. Todos los derechos reservados.</h4>
+            </div>
+            <div class="footer-col">
+                <h4>The Asylum</h4>
+                <ul class="links">
+                    <li><a href="index.html" data-lang="home">Inicio</a></li>
+                    <li><a href="contact.html" data-lang="contact">Contacto</a></li>
+                    <li><a href="account.html" data-lang="account">Cuenta</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <ul class="links">
+                    <li><a href="#" data-lang="privacy-policy">Política de privacidad</a></li>
+                    <li><a href="terms-of-use.html" data-lang="terms-of-use">Términos de uso</a></li>
+                    <li><a href="legal-information.html" data-lang="legal-information">Información legal</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4 data-lang="follow-media">Síguenos en nuestras redes sociales</h4>
+                <div class="icons">
+                    <a href="https://instagram.com/" target="_blank">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="https://x.com/" target="_blank">
+                        <i class="fa-brands fa-x-twitter"></i>
+                    </a>
+                    <a href="https://facebook.com/" target="_blank">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+                    <a href="https://tiktok.com/" target="_blank">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+                    <a href="https://youtube.com/" target="_blank">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+                    <a href="https://twitch.tv/" target="_blank">
+                        <i class="fa-brands fa-twitch"></i>
+                    </a>
+                    <a href="https://discord.com/" target="_blank">
+                        <i class="fa-brands fa-discord"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SCRIPTS JAVASCRIPT -->
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
