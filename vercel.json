@@ -1,7 +1,7 @@
 {
   "rewrites": [
     {
-      "source": "/index.html",
+      "source": "/index",
       "destination": "/index.html"
     },
     {
@@ -31,48 +31,6 @@
     {
       "source": "/legal-information",
       "destination": "/legal-information.html"
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/index.html",
-      "destination": "/index.html",
-      "permanent": true
-    },
-    {
-      "source": "/contact",
-      "destination": "/contact.html",
-      "permanent": true
-    },
-    {
-      "source": "/account",
-      "destination": "/account.html",
-      "permanent": true
-    },
-    {
-      "source": "/profile",
-      "destination": "/profile.html",
-      "permanent": true
-    },
-    {
-      "source": "/forgotten-password",
-      "destination": "/forgotten-password.html",
-      "permanent": true
-    },
-    {
-      "source": "/privacy-policy",
-      "destination": "/privacy-policy.html",
-      "permanent": true
-    },
-    {
-      "source": "/terms-of-use",
-      "destination": "/terms-of-use.html",
-      "permanent": true
-    },
-    {
-      "source": "/legal-information",
-      "destination": "/legal-information.html",
-      "permanent": true
     }
   ]
 }
